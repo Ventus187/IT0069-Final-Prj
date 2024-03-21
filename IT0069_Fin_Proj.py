@@ -10,6 +10,11 @@ df.drop(columns=['description'], inplace=True)
 df['price'] = df['price'].str.replace('$', '').astype(float)
 df['salePercentage'] = df['salePercentage'].str.replace('%', '').astype(float)
 df.dropna(inplace=True)
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+
+print(df)
+
 
 # Phase 2: Exploratory Data Analysis (EDA)
 plt.figure(figsize=(10, 6))
