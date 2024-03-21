@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
 
 # Phase 1: Data Collection and Preparation
 df = pd.read_csv("steam_store_data_2024.csv")
@@ -52,6 +55,15 @@ plt.xlabel('Price ($)')
 plt.ylabel('Sale Percentage (%)')
 plt.show()
 
-# Phase 4: Predictive Modeling (skipped)
+# Phase 4: Predictive Modeling
 
-# Phase 5: Visualization and Reporting
+X = df[['price', 'salePercentage']]
+y = df['recentReviews'] == 'Very Positive' 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = LogisticRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+print(classification_report(y_test, y_pred))
+
